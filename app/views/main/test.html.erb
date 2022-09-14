@@ -1,0 +1,32 @@
+<style>
+table, th, td {
+  border:1px solid black;
+}
+</style>
+<%= form_with url: "/main/test", method: "post",  data:{turbo:false} do |form| %>
+	  <%= form.hidden_field :number, value: @number.to_i%>
+	  <%= form.hidden_field :root, value: false%>
+	<table>
+  <tr>
+    <th>Subject</th>
+    <th>Score</th>
+  </tr>
+  <%for i in 0...@number.to_i do%>
+  <%if(params["subject#{i}"])%>
+    <% a= params["subject#{i}"]%>
+  <%else%>
+    <% a= ''%>
+  <%end%>
+  <%if(params["score#{i}"])%>
+    <% b= params["score#{i}"]%>
+  <%else%>
+    <% b=''%>
+  <%end%>
+  <tr>
+  	<td> <%= form.label "subject#{i}", "Subject#{i+1}:"  %><%= form.text_field "subject#{i}" ,value:a%><%if(@errsubject[i]&&@errsubject[i]==1)%><%="please fill subject#{i+1}"%><%end%></td>
+  	<td><%= form.label "score#{i}", "Score#{i+1}:" %><%= form.text_field "score#{i}" ,value: b%><%if(@errscore[i]&&@errscore[i]==1)%><%="please fill score#{i+1} or don't using character"%><%end%></td>
+  </tr>
+  <%end%>
+</table>
+<%= form.submit "SUBMIT" %>
+<%end%>

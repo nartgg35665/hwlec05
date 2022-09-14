@@ -1,0 +1,16 @@
+<%="Edit Subject No.#{@no}"%>
+<%= form_with url: "/score/update", method: "post",  data:{turbo:false} do |form| %>
+<%= form.hidden_field :id, value: @score.id%>
+		<%= form.label :subject, "Subject:" %>
+  <%= form.text_field :subject ,value:@score.subject,style: "margin-bottom:10px"%>
+<br>
+  <%= form.label :score, "Score:" %>
+  <%= form.text_field :score ,value:@score.score,style: "margin-bottom:10px"%>
+  <br>
+  <div style="display: flex;">
+  <%= form.submit "SAVE" ,style: "margin-right:20px"%>
+<%end%>
+<%= form_with url: "/score/back", method: "post",  data:{turbo:false} do |form| %>
+	 <%= form.submit "BACK" %>
+<%end%>
+</div>

@@ -1,0 +1,6 @@
+<%="Sum is #{@sum}"%>
+<br>
+<%="Your best subject is #{@ans}"%>
+<%= form_with url: "/score/list", method: "post",  data:{turbo:false} do |form| %>
+	<%= form.submit "See All" %>
+<%end%>

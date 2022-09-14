@@ -1,0 +1,45 @@
+<style>
+table, th, td {
+  border:1px solid black;
+}
+</style>
+<%="List of Subject"%>
+<br>
+<%if @scores[0] %>
+<table>
+	<tr>
+		<th>No.</th>
+		<th>subject</th>
+		<th>score</th>
+	</tr>
+	<% for i in 0...@scores.length do%>
+	
+	<% score=@scores[i].score%>
+	<% subject=@scores[i].subject%>
+	<% id=@scores[i].id%>
+	
+	<tr>
+		<td><%=i+1%></td>
+		<td><%=subject%></td>
+		<td><%=score%></td>		
+		<%= form_with url: "/score/delete", method: "post",  data:{turbo:false} do |form| %>
+		<td><%= form.submit "delete item#{i+1}" %></td>
+		<%= form.hidden_field :no , value:"#{id}"%>
+		<%end%>
+		<%= form_with url: "/score/edit", method: "post",  data:{turbo:false} do |form| %>
+		<td><%= form.submit "edit item#{i+1}" %></td>
+		<%= form.hidden_field :id , value:"#{id}"%>
+		<%= form.hidden_field :no , value:"#{i+1}"%>
+		<%end%>
+	</tr>
+	<%end%>
+</table>
+<%="Sum is #{@sum}"%>
+<br>
+<%="Your best subject is #{@ans}"%>
+<%else%>
+	<%="No Result"%>
+<%end%>
+<%= form_with url: '/main/index', method: "post",  data:{turbo:false} do |form| %>
+	<%= form.submit "Add New Subject" %>
+<%end%>
